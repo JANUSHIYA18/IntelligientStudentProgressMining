@@ -23,7 +23,18 @@ ProgressIQ/
 
 ## Environment Setup
 
-Create these local env files:
+Create these local env files.
+
+You can use the committed examples:
+
+```bash
+copy backend\.env.example backend\.env
+copy frontend\.env.example frontend\.env
+```
+
+The root `.env.example` also includes both app examples in one place for quick reference.
+
+Or create them manually as shown below.
 
 ### Backend
 
@@ -32,11 +43,14 @@ File: `backend/.env`
 Example:
 
 ```env
-PORT=5000
+NODE_ENV=development
+PORT=3000
+FRONTEND_URL=http://localhost:5173
+BACKEND_URL=http://localhost:3000
 MONGODB_URI=mongodb://127.0.0.1:27017/progressiq
-JWT_SECRET=your_jwt_secret
-ADMIN_EMAIL=admin@school.in
-ADMIN_PASSWORD=admin123
+JWT_SECRET=change_this_to_a_long_random_secret
+JWT_EXPIRES_IN=7d
+GOOGLE_CLIENT_ID=
 ```
 
 ### Frontend
@@ -46,7 +60,7 @@ File: `frontend/.env`
 Example:
 
 ```env
-VITE_API_BASE_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:3000/api
 ```
 
 ## Install
@@ -76,7 +90,7 @@ npm run dev
 
 This starts:
 
-- backend on `http://localhost:5000`
+- backend on `http://localhost:3000`
 - frontend on `http://localhost:5173`
 
 ### Start them separately
@@ -124,10 +138,11 @@ npm run seed:demo
 ## Main URLs
 
 - Frontend: `http://localhost:5173`
-- Backend API: `http://localhost:5000/api`
+- Backend API: `http://localhost:3000/api`
 
 ## Notes
 
 - `node_modules`, build output, and `.env` files are ignored at the repo root.
 - If the frontend cannot connect, verify `frontend/.env` points to the correct backend API base URL.
 - If login or dashboard data fails, confirm MongoDB is running and backend env values are correct.
+- `npm run seed:admin` creates the default admin user shown by the backend seed script.

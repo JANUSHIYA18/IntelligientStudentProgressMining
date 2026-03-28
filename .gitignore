@@ -7,6 +7,9 @@ backend/.env
 frontend/.env
 .env
 .env.*
+!.env.example
+!backend/.env.example
+!frontend/.env.example
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
