@@ -448,6 +448,8 @@ export const reviewExtensionRequest = async (req, res) => {
         const parsed = new Date(req.body.markEntryDeadlineAt);
         if (Number.isNaN(parsed.getTime())) return fail(res, 400, "markEntryDeadlineAt must be valid");
         nextDeadline = parsed;
+      } else if (request.requestedUntil) {
+        nextDeadline = new Date(request.requestedUntil);
       } else {
         const extendHours = Number(req.body.extendHours);
         if (Number.isNaN(extendHours) || extendHours <= 0) return fail(res, 400, "extendHours must be a positive number");

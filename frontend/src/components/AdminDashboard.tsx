@@ -329,16 +329,9 @@ export function AdminDashboard() {
 
   const handleReviewExtensionRequest = async (request: ExtensionRequest, action: 'approve' | 'reject') => {
     try {
-      const body: { action: 'approve' | 'reject'; extendHours?: number } = { action };
+      const body: { action: 'approve' | 'reject'; markEntryDeadlineAt?: string } = { action };
       if (action === 'approve') {
-        const hoursInput = window.prompt(`Approve extension for ${request.teacherName} (${request.exam}). Enter extend hours:`, '24');
-        if (hoursInput === null) return;
-        const extendHours = Number(hoursInput);
-        if (Number.isNaN(extendHours) || extendHours <= 0) {
-          toast.error('Enter valid extend hours');
-          return;
-        }
-        body.extendHours = extendHours;
+        body.markEntryDeadlineAt = request.requestedUntil;
       }
       await apiRequest(`/admin/exam-extension-requests/${request._id}`, {
         method: 'PUT',
